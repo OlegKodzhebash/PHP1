@@ -1,0 +1,56 @@
+[
+    {
+        "id": "69cfb65517e8a4.31788778",
+        "name": "Олег",
+        "description": "Люблю чинить машину",
+        "category": "education",
+        "difficulty": "medium",
+        "start_date": "2026-04-02",
+        "goal_days": 1,
+        "days": [
+            "mon"
+        ],
+        "created_at": "2026-04-03 12:45:09"
+    },
+    {
+        "id": "69cfb668286094.22844324",
+        "name": "olegcodjebas",
+        "description": "fgjdfjstfhjdfth",
+        "category": "health",
+        "difficulty": "easy",
+        "start_date": "2026-04-02",
+        "goal_days": 44,
+        "days": [
+            "sat"
+        ],
+        "created_at": "2026-04-03 12:45:28"
+    },
+    {
+        "id": "69cfb785572190.39755148",
+        "name": "Oleg Codjebas",
+        "description": "ыцкнцоыукцук",
+        "category": "education",
+        "difficulty": "hard",
+        "start_date": "2026-04-05",
+        "goal_days": 4,
+        "days": [
+            "thu"
+        ],
+        "created_at": "2026-04-03 12:50:13"
+    },
+    {
+        "id": "69d0c4e3920d01.40703425",
+        "name": "Игорь",
+        "description": "ЬИгорб иогорь",
+        "category": "health",
+        "difficulty": "easy",
+        "start_date": "2026-04-05",
+        "goal_days": 21,
+        "days": [
+            "tue",
+            "thu",
+            "sat"
+        ],
+        "created_at": "2026-04-04 07:59:31"
+    }
+]
