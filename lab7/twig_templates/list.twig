@@ -1,0 +1,86 @@
+{% extends "layout.twig" %}
+
+{% block title %}Все привычки — Twig{% endblock %}
+
+{% block subtitle %}
+    Список привычек через Twig
+{% endblock %}
+
+{% block content %}
+<div class="stats">
+    <div class="stat-card">
+        <div class="number">{{ total }}</div>
+        <div class="label">Всего привычек</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="number">{{ cats_count }}</div>
+        <div class="label">Категорий</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="number">{{ avg_goal }}</div>
+        <div class="label">Средняя цель</div>
+    </div>
+</div>
+
+<div class="card">
+    {% if records is empty %}
+        <div class="empty">
+            <p>Привычек пока нет.</p>
+            <p><a href="index.php?view=twig">Добавить первую привычку</a></p>
+        </div>
+    {% else %}
+        <table>
+            <thead>
+            <tr>
+                <th><a href="index.php?page=list&view=twig&sort=name&order={{ sort == 'name' and order == 'asc' ? 'desc' : 'asc' }}">Название</a></th>
+                <th><a href="index.php?page=list&view=twig&sort=category&order={{ sort == 'category' and order == 'asc' ? 'desc' : 'asc' }}">Категория</a></th>
+                <th><a href="index.php?page=list&view=twig&sort=difficulty&order={{ sort == 'difficulty' and order == 'asc' ? 'desc' : 'asc' }}">Сложность</a></th>
+                <th><a href="index.php?page=list&view=twig&sort=start_date&order={{ sort == 'start_date' and order == 'asc' ? 'desc' : 'asc' }}">Дата начала</a></th>
+                <th><a href="index.php?page=list&view=twig&sort=goal_days&order={{ sort == 'goal_days' and order == 'asc' ? 'desc' : 'asc' }}">Цель</a></th>
+                <th>Дни</th>
+                <th>Описание</th>
+                <th><a href="index.php?page=list&view=twig&sort=created_at&order={{ sort == 'created_at' and order == 'asc' ? 'desc' : 'asc' }}">Добавлено</a></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for r in records %}
+                <tr>
+                    <td>{{ r.name }}</td>
+
+                    <td>
+                        <span class="badge badge-cat">
+                            {{ category_labels[r.category] ?? r.category }}
+                        </span>
+                    </td>
+
+                    <td>
+                        <span class="badge" style="background: {{ difficulty_colors[r.difficulty] ?? '#eee' }}">
+                            {{ difficulty_labels[r.difficulty] ?? r.difficulty }}
+                        </span>
+                    </td>
+
+                    <td>{{ r.start_date }}</td>
+
+                    <td>{{ r.goal_days|goal_duration }}</td>
+
+                    <td>
+                        {% for d in r.days %}
+                            <span class="badge badge-day">
+                                {{ day_labels[d] ?? d }}
+                            </span>
+                        {% endfor %}
+                    </td>
+
+                    <td>{{ r.description|slice(0, 80) }}{% if r.description|length > 80 %}…{% endif %}</td>
+
+                    <td>{{ r.created_at }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>
+{% endblock %}

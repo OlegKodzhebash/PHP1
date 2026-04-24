@@ -1,0 +1,16 @@
+[
+    {
+        "id": "69ebaabfe091a2.38520034",
+        "name": "кепек",
+        "description": "попсу",
+        "category": "health",
+        "difficulty": "medium",
+        "start_date": "2026-04-09",
+        "goal_days": 10,
+        "days": [
+            "tue",
+            "fri"
+        ],
+        "created_at": "2026-04-24 17:39:11"
+    }
+]

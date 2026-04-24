@@ -1,0 +1,80 @@
+{% extends "layout.twig" %}
+
+{% block title %}Результат сохранения — Twig{% endblock %}
+
+{% block subtitle %}
+    Результат сохранения через Twig
+{% endblock %}
+
+{% block content %}
+<div class="card form-card">
+    {% if errors is not empty %}
+        <p class="error-title">❌ Ошибки валидации</p>
+
+        <ul class="error-list">
+            {% for error in errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+
+        <div class="actions">
+            <a href="javascript:history.back()" class="btn btn-primary">← Вернуться к форме</a>
+        </div>
+    {% else %}
+        <p class="success-title">✅ Привычка сохранена!</p>
+
+        <table class="record-table">
+            <tr>
+                <td>Название</td>
+                <td>{{ record.name }}</td>
+            </tr>
+
+            <tr>
+                <td>Описание</td>
+                <td>{{ record.description ?: '—' }}</td>
+            </tr>
+
+            <tr>
+                <td>Категория</td>
+                <td>{{ category_labels[record.category] ?? record.category }}</td>
+            </tr>
+
+            <tr>
+                <td>Сложность</td>
+                <td>{{ difficulty_labels[record.difficulty] ?? record.difficulty }}</td>
+            </tr>
+
+            <tr>
+                <td>Дата начала</td>
+                <td>{{ record.start_date }}</td>
+            </tr>
+
+            <tr>
+                <td>Цель</td>
+                <td>{{ record.goal_days|goal_duration }}</td>
+            </tr>
+
+            <tr>
+                <td>Дни выполнения</td>
+                <td>
+                    {% for day in record.days %}
+                        <span class="badge badge-day">
+                            {{ day_labels[day] ?? day }}
+                        </span>
+                    {% endfor %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Дата добавления</td>
+                <td>{{ record.created_at }}</td>
+            </tr>
+        </table>
+
+        <div class="actions">
+            <a href="index.php?view=twig" class="btn btn-outline">➕ Добавить ещё</a>
+            <a href="index.php?page=list&view=twig" class="btn btn-primary">📊 Все привычки</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

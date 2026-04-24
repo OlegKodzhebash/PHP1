@@ -1,0 +1,67 @@
+{% extends "layout.twig" %}
+
+{% block title %}Добавить привычку — Twig{% endblock %}
+
+{% block subtitle %}
+    Форма добавления через Twig
+{% endblock %}
+
+{% block content %}
+<div class="card form-card">
+    <form action="index.php?view=twig" method="post">
+        <div class="form-group">
+            <label for="name">Название привычки</label>
+            <input type="text" id="name" name="name" placeholder="Например: Утренняя пробежка">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Описание</label>
+            <textarea id="description" name="description" placeholder="Кратко опишите привычку"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Категория</label>
+            <select id="category" name="category">
+                <option value="">Выберите категорию</option>
+                {% for key, label in category_labels %}
+                    <option value="{{ key }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="difficulty">Сложность</label>
+            <select id="difficulty" name="difficulty">
+                <option value="">Выберите сложность</option>
+                {% for key, label in difficulty_labels %}
+                    <option value="{{ key }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="start_date">Дата начала</label>
+            <input type="date" id="start_date" name="start_date">
+        </div>
+
+        <div class="form-group">
+            <label for="goal_days">Цель в днях</label>
+            <input type="number" id="goal_days" name="goal_days" min="1" max="365">
+        </div>
+
+        <div class="form-group">
+            <label>Дни выполнения</label>
+            <div class="checkbox-group">
+                {% for key, label in day_labels %}
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="days[]" value="{{ key }}">
+                        {{ label }}
+                    </label>
+                {% endfor %}
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Сохранить привычку</button>
+    </form>
+</div>
+{% endblock %}
