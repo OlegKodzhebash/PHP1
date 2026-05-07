@@ -1,0 +1,98 @@
+{% extends "layout.twig" %}
+
+{% block title %}
+    {% if record %}Редактировать привычку{% else %}Добавить привычку{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    {% if errors is not empty %}
+        <div class="errors">
+            <strong>Ошибки:</strong>
+            <ul>
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="post" action="{{ action }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+        <div class="form-group">
+            <label>Название привычки</label>
+            <input type="text" name="name" value="{{ record.name ?? '' }}">
+        </div>
+
+        <div class="form-group">
+            <label>Описание</label>
+            <textarea name="description">{{ record.description ?? '' }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Категория</label>
+            <select name="category_id">
+                <option value="">Выберите категорию</option>
+
+                {% for category in categories %}
+                    <option 
+                        value="{{ category.id }}"
+                        {% if record and record.category_id == category.id %}selected{% endif %}
+                    >
+                        {{ category.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Сложность</label>
+            <select name="difficulty">
+                <option value="">Выберите сложность</option>
+
+                {% for key, label in difficulties %}
+                    <option 
+                        value="{{ key }}"
+                        {% if record and record.difficulty == key %}selected{% endif %}
+                    >
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Дата начала</label>
+            <input type="date" name="start_date" value="{{ record.start_date ?? '' }}">
+        </div>
+
+        <div class="form-group">
+            <label>Цель в днях</label>
+            <input type="number" name="goal_days" min="1" max="365" value="{{ record.goal_days ?? '' }}">
+        </div>
+
+        <div class="form-group">
+            <label>Дни выполнения</label>
+
+            <div class="checkbox-group">
+                {% for key, label in dayLabels %}
+                    <label class="checkbox-label">
+                        <input 
+                            type="checkbox" 
+                            name="days[]" 
+                            value="{{ key }}"
+                            {% if record and key in record.days %}checked{% endif %}
+                        >
+                        {{ label }}
+                    </label>
+                {% endfor %}
+            </div>
+        </div>
+
+        <button class="btn" type="submit">
+            {% if record %}Сохранить изменения{% else %}Добавить привычку{% endif %}
+        </button>
+    </form>
+</div>
+{% endblock %}
